@@ -17,10 +17,12 @@
             Task::deleteAll();
         }
 
+
         function test_save()
         {
             $description = "Wash the dog";
-            $test_task = new Task($description);
+            $id = null;
+            $test_task = new Task($description, $id);
 
             $test_task->save();
 
@@ -33,8 +35,9 @@
             //arrange
             $description = "Wash the dog";
             $description2 = "Water the lawn";
-            $test_Task = new Task($description);
-            $test_Task2 = new Task($description2);
+            $id = null;
+            $test_Task = new Task($description, $id);
+            $test_Task2 = new Task($description2, $id);
             $test_Task->save();
             $test_Task2->save();
 
@@ -48,11 +51,12 @@
         function test_deleteAll()
         {
             //Arrange
+            $id = null;
             $description = "Wash the dog";
             $description2 = "Water the lawn";
-            $test_Task = new Task($description);
+            $test_Task = new Task($description, $id);
             $test_Task->save();
-            $test_Task2 = new Task($description2);
+            $test_Task2 = new Task($description2, $id);
             $test_Task2->save();
 
             //Act
