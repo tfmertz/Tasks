@@ -1,35 +1,35 @@
 <?php
 
-    
 
-    class Task
-    {
-        private $description;
 
-        function __construct($description)
+class Task
+{
+    private $description;
+
+    function __construct($description)
     {
-            $this->description = $description;
+        $this->description = $description;
     }
-        function setDescription($new_description)
+    function setDescription($new_description)
     {
-            $this->description = (string) $new_description;
-    }
-
-        function getDescription()
-    {
-            return $this->description;
+        $this->description = (string) $new_description;
     }
 
-        function save()
+    function getDescription()
     {
-            array_push($_SESSION['list_of_tasks'], $this);
+        return $this->description;
     }
 
-        static function getALL()
+    function save()
     {
-            return $_SESSION['list_of_tasks'];
+        $GLOBALS['DB']->exec("INSERT INTO tasks (description) VALUES ('{$this->getDescription()}');");
     }
-        static function deleteAll()
+
+    static function getALL()
+    {
+        return $_SESSION['list_of_tasks'];
+    }
+    static function deleteAll()
     {
         $_SESSION['list_of_tasks'] = array();
     }
