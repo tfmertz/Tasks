@@ -72,7 +72,7 @@
             //Arrange
             $description = "Wash the dog";
             $id = 1;
-            $test_Task = new Task($decription, $id);
+            $test_Task = new Task($description, $id);
 
             //Act
             $result = $test_Task->getId();
