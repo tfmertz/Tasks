@@ -95,5 +95,23 @@
             $result = $test_Task->getId();
             $this->assertEquals(2, $result);
         }
+
+        function test_find()
+        {
+            //arrange
+            $description = "Wash the dog";
+            $id = null;
+            $description2 = "Water the lawn";
+            $test_Task = new Task($description, $id);
+            $test_Task->save();
+            $test_Task2 = new Task($description2, $id);
+            $test_Task2->save();
+
+            //act
+            $result = Task::find($test_Task->getId());
+
+            //assert
+            $this->assertEquals($test_Task, $result);
+        }
     }
 ?>
