@@ -7,7 +7,7 @@
 
     require_once "src/Task.php";
 
-    $DB = new PDO('pgsql:host=localhost;dbname=to_do_text');
+    $DB = new PDO('pgsql:host=localhost;dbname=to_do_test');
 
     class TaskTest extends PHPUnit_Framework_TestCase
     {

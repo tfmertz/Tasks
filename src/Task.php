@@ -32,7 +32,7 @@ class Task
         foreach ($returned_tasks as $task) {
             $description = $task['description'];
             $new_task = new Task($description);
-            array_push($tasks, $new_tasks);
+            array_push($tasks, $new_task);
 
         }
         return $tasks;
