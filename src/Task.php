@@ -6,13 +6,14 @@ class Task
 {
     private $description;
     private $id;
-
+    private $category_id;
 
     //create constructor with a default id value of null
-    function __construct($description, $id = null)
+    function __construct($description, $id = null, $category_id)
     {
         $this->description = $description;
         $this->id = $id;
+        $this->category_id = $category_id;
     }
 
     function getId()
@@ -35,11 +36,21 @@ class Task
         return $this->description;
     }
 
+    function setCategoryId($new_category_id)
+    {
+        $this->category_id = (int) $new_category_id;
+    }
+
+    function getCategoryId()
+    {
+        return $this->category_id;
+    }
+
     function save()
     {
         //save the task's description into the column named description in the tasks table of the to_do(_test) database
         //return the id that corresponds to to the row that we input the description
-        $statement = $GLOBALS['DB']->query("INSERT INTO tasks (description) VALUES ('{$this->getDescription()}') RETURNING id;");
+        $statement = $GLOBALS['DB']->query("INSERT INTO tasks (description, category_id) VALUES ('{$this->getDescription()}', {$this->getCategoryId()}) RETURNING id;");
         //set a new variable equal to an associative array containing the id
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         //set the class's id property equal to the value in the associative array
@@ -60,8 +71,9 @@ class Task
             $description = $task['description'];
             //do the same for id
             $id = $task['id'];
+            $category_id = $task['category_id'];
             //make a new Task object with the data from the database
-            $new_task = new Task($description, $id);
+            $new_task = new Task($description, $id, $category_id);
             //save that object into our array to return
             array_push($tasks, $new_task);
 
@@ -77,6 +89,11 @@ class Task
     {
         //delete all data from database
         $GLOBALS['DB']->exec("DELETE FROM tasks *;");
+    }
+
+    static function deleteFromCategory($category_id)
+    {
+        $GLOBALS['DB']->exec("DELETE FROM tasks * WHERE category_id = {$category_id}");
     }
 
     static function find($search_id)
