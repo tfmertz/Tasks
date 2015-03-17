@@ -11,13 +11,15 @@
 
     class TaskTest extends PHPUnit_Framework_TestCase
     {
-
+        //clear out the to_do_test database after every test is run
         protected function tearDown()
         {
             Task::deleteAll();
         }
 
 
+        //test that our Task->save() method stores our objects
+        //information into our to_do_test database
         function test_save()
         {
             $description = "Wash the dog";
@@ -30,6 +32,9 @@
             $this->assertEquals($test_task, $result[0]);
         }
 
+
+        //test to make sure that the getAll function collects all the task information
+        //correctly and then recreates the tasks to be identical with this information
         function test_getAll()
         {
             //arrange
@@ -48,6 +53,7 @@
             $this->assertEquals([$test_Task, $test_Task2], $result);
         }
 
+        //tests if function properly deletes all entries from the database.
         function test_deleteAll()
         {
             //Arrange
@@ -67,6 +73,7 @@
             $this->assertEquals([], $result);
         }
 
+        //tests if function properly retrieves id.
         function test_getId()
         {
             //Arrange
@@ -81,6 +88,8 @@
             $this->assertEquals(1, $result);
         }
 
+        //tests if function properly sets id within the class that corresponds with the database
+        //id.
         function test_setId()
         {
             //Arrange
@@ -96,6 +105,7 @@
             $this->assertEquals(2, $result);
         }
 
+        //tests if function properly locates id.
         function test_find()
         {
             //arrange
